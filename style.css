@@ -1,0 +1,79 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) 4fr minmax(120px, 1fr);
+    grid-template-rows: repeat(3, 50px) 10fr 1fr;
+    min-width: 680px;
+    height: 100vh;
+}
+
+.title{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    align-self: center;
+    justify-self: center;
+}
+
+.game-options{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
+.scoreboard{
+    grid-column: 2/3;
+    grid-row: 3/4;
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content: space-around;
+}
+
+.playerscore{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.playerscore .score{
+    border: solid black;
+    height: 30px;
+    width: 30px;
+}
+
+.on-screen-text{
+    width: 130px;
+    text-align: center;
+}
+
+.game-board{
+    grid-column: 2/3;
+    grid-row: 4/5;
+    border: solid black;
+    height: 400px;
+    width: 450px;
+    align-self: center;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.game-board div{
+    height: 100%;
+    width: 100%;
+    border: solid black;
+}
