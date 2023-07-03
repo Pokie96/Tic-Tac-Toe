@@ -14,7 +14,10 @@ const gameBoard = (function(){
 
     const gameCells = document.querySelectorAll('.child-cells');
 
-    
+    const handleClick = function(event){
+      let arrayIndex = event.target.id;  
+      console.log(arrayIndex);
+    }
 
     // Function determines which player is currently active and switched the move symbol and the 
     // player.
@@ -57,29 +60,15 @@ const gameBoard = (function(){
             let currentCell = gameCells[i];
             currentCell.innerHTML = movesArray[i];
         }
+    };
+
+    gameCells.forEach((cell) => {
+        cell.addEventListener('click', handleClick)
+    });
+
+    return{
+    render
     }
-
-
-/*
-    // Our event listener for our grid.
-    document.querySelector('.game-board').addEventListener('click', function(e){
-        // Find the ID of the individual cell we clicked inside of the grid (0-8).
-        let currentCellID = e.target.id;
-        // Find the correct array position using the previous ID variable.
-        let arrayPos = findArrayPos(currentCellID);
-        if (checkArrayPos(arrayPos) === false){
-            alert("You can't use the same cell twice!")
-            return;
-        };
-        // Determine correct current move by determining which player is active.
-        currentMove = determinePlayer();
-        // Add the move to our array at the correct array index.
-        addMove(arrayPos, currentMove);
-        // Render the array into our grid.
-        render();
-    })*/
-
-    return{render}
 })();
 
 const GameController = (function(){
