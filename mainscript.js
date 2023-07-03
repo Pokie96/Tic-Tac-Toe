@@ -29,14 +29,21 @@ const GameBoard = (function(){
         };
     };
 
+    // This function resets our array to its inital values.
     const resetArray = function(){
         movesArray = ['', '', '', '', '', '', '', '', ''];
+    };
+
+    const getMovesArray = function(){
+        return movesArray;
     }
+
 
     return{
     render,
     addMove,
     resetArray,
+    getMovesArray,
     gameCells
     };
 })();
@@ -86,6 +93,7 @@ const GameController = (function(){
         let arrayIndex = event.target.id;  
         GameBoard.addMove(arrayIndex, players[currentPlayerIndex].assignedMove)
         GameBoard.render()
+        displayWinner();
         switchPlayer();
     };
 
@@ -107,6 +115,34 @@ const GameController = (function(){
         GameBoard.gameCells.forEach((cell) => {
             cell.removeEventListener('click', handleClick);
         });
+    }
+
+    const checkForWin = function(board){
+        const winningCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+        for(let i = 0; i < winningCombinations.length; i++){
+            const[a, b, c] = winningCombinations[i];
+            if (board[a] && board[a] === board[b] && board[a] === board[c]){
+                return true;
+            }
+        };
+        return false;
+    };
+
+    const displayWinner = function(){
+        gameOver = checkForWin(GameBoard.getMovesArray())
+        console.log(gameOver)
+        if (gameOver === true){
+            alert(`${players[currentPlayerIndex].playerName} is the Winner!`)
+        }
     }
 
     return{}
