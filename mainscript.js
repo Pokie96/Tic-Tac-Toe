@@ -73,7 +73,7 @@ const GameController = (function(){
         // Adds click event listener to each of the cells of the 
         // gameboard.
         GameBoard.gameCells.forEach((cell) => {
-            cell.addEventListener('click', handleClick)
+            cell.addEventListener('click', handleClick, {once: true})
         });
     };
 
