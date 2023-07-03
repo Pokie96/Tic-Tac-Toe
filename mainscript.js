@@ -14,13 +14,6 @@ const GameBoard = (function(){
 
     const gameCells = document.querySelectorAll('.child-cells');
 
-    const checkArrayPos = function(currentArrayPos){
-        if (movesArray[currentArrayPos] !== ''){
-            return false;
-        } else{
-            return true
-        };
-    };
 
     // Function uses our array position from the previous function along with current move to add 
     // the current move to our movesArray at the correct index.
@@ -36,23 +29,33 @@ const GameBoard = (function(){
         };
     };
 
+    const resetArray = function(){
+        movesArray = ['', '', '', '', '', '', '', '', ''];
+    }
+
     return{
     render,
     addMove,
+    resetArray,
     gameCells
     };
 })();
 
 const GameController = (function(){
-    const initialStart = document.querySelector("#player-input-start");
+    const initialStartBtn = document.querySelector("#player-input-start");
+    const restartBtn = document.querySelector("#reset-btn");
     let players = [];
     let currentPlayerIndex;
     let gameOver;
 
     // Event listener for initial start button to allow us to play
     // the game
-    initialStart.addEventListener('click', () => {
+    initialStartBtn.addEventListener('click', () => {
         start()
+    });
+
+    restartBtn.addEventListener('click', () => {
+        restart();
     });
 
     // Start function for our initial start button -
@@ -95,6 +98,15 @@ const GameController = (function(){
         } else {
             currentPlayerIndex = 0;
         }
+    };
+
+    const restart = function(){
+        players = [];
+        GameBoard.resetArray();
+        GameBoard.render();
+        GameBoard.gameCells.forEach((cell) => {
+            cell.removeEventListener('click', handleClick);
+        });
     }
 
     return{}
