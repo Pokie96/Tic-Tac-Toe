@@ -7,55 +7,40 @@ const createPlayer = (playerName, assignedMove) => {
 
 const GameBoard = (function(){
     // The array is used to store the game moves for our render function to use.
-    let movesArray = ['', '', '', '', '', '', '', '', '']
+    let movesArray = ['', '', '', '', '', '', '', '', ''];
     // Initialise two variables to be used in a function to determine the current move.
     let currentPlayer;
     let currentMove ;
 
     const gameCells = document.querySelectorAll('.child-cells');
 
-    // Function determines which player is currently active and switched the move symbol and the 
-    // player.
-    const determinePlayer = function(){
-        if(currentPlayer === 'Player One'){
-            currentPlayer = 'Player Two';
-            currentMove = 'O';
-        } else if(currentPlayer === 'Player Two' || !currentPlayer){
-            currentPlayer = 'Player One'
-            currentMove = 'X'
-        }
-        return currentMove;
-    }
-
-
     const checkArrayPos = function(currentArrayPos){
         if (movesArray[currentArrayPos] !== ''){
             return false;
         } else{
             return true
-        }
-    }
+        };
+    };
 
     // Function uses our array position from the previous function along with current move to add 
     // the current move to our movesArray at the correct index.
     const addMove = function(index, assignedMove){
         movesArray[index] = assignedMove;
-        console.log(assignedMove);
-    }
+    };
 
     // Render function renders the items in our movesArray inside our Tic Tac Toe grid.
     const render = function(){
         for(let i = 0; i < movesArray.length; i++){
             let currentCell = gameCells[i];
             currentCell.innerHTML = movesArray[i];
-        }
+        };
     };
 
     return{
     render,
     addMove,
     gameCells
-    }
+    };
 })();
 
 const GameController = (function(){
@@ -67,8 +52,8 @@ const GameController = (function(){
     // Event listener for initial start button to allow us to play
     // the game
     initialStart.addEventListener('click', () => {
-        GameController.start()
-    })
+        start()
+    });
 
     // Start function for our initial start button -
 
@@ -90,15 +75,27 @@ const GameController = (function(){
         GameBoard.gameCells.forEach((cell) => {
             cell.addEventListener('click', handleClick)
         });
-    }
+    };
 
     // Function finds the ID of the cell, finds the correct move 
-    // marker and renders the marker into the cell.
+    // marker, renders the marker into the cell and switches player.
     const handleClick = function(event){
         let arrayIndex = event.target.id;  
         GameBoard.addMove(arrayIndex, players[currentPlayerIndex].assignedMove)
         GameBoard.render()
+        switchPlayer();
+    };
+
+    // Function switches player using the currentPlayerIndex's 
+    // value.
+
+    const switchPlayer = function(){
+        if (currentPlayerIndex === 0){
+            currentPlayerIndex = 1;
+        } else {
+            currentPlayerIndex = 0;
+        }
     }
 
-    return{start, players: players}
+    return{}
 })();
