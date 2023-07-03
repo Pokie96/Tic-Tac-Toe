@@ -1,6 +1,6 @@
 // This factory function creates our players for the game.
-let createPlayer = (playerName, playerNumber, assignedMove) => {
-    return{playerName, playerNumber, assignedMove};
+const createPlayer = (playerName, assignedMove) => {
+    return{playerName,  assignedMove};
 }
 
 
@@ -58,7 +58,7 @@ const gameBoard = (function(){
     }
 
 
-
+/*
     // Our event listener for our grid.
     document.querySelector('.game-board').addEventListener('click', function(e){
         // Find the ID of the individual cell we clicked inside of the grid (0-8).
@@ -75,6 +75,30 @@ const gameBoard = (function(){
         addMove(arrayPos, currentMove);
         // Render the array into our grid.
         render();
-    })
+    })*/
+
+    return{render}
 })();
 
+const GameController = (function(){
+    let players = [];
+    let currentPlayerIndex;
+    let gameOver;
+
+    const start = ()=> {
+        players = [
+        createPlayer(document.querySelector("#player-one-input").value, 'X'),
+        createPlayer(document.querySelector("#player-two-input").value, 'O')]
+        currentPlayerIndex = 0;
+        gameOver = false;
+        gameBoard.render();
+        console.log(players)
+    }
+
+    return{start, players: players}
+})();
+
+const initialStart = document.querySelector("#player-input-start");
+initialStart.addEventListener('click', () => {
+    GameController.start()
+})
