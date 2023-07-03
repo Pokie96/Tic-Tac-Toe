@@ -5,7 +5,7 @@ const createPlayer = (playerName, assignedMove) => {
 
 
 
-const gameBoard = (function(){
+const GameBoard = (function(){
     // The array is used to store the game moves for our render function to use.
     let movesArray = ['', '', '', '', '', '', '', '', '']
     // Initialise two variables to be used in a function to determine the current move.
@@ -13,11 +13,6 @@ const gameBoard = (function(){
     let currentMove ;
 
     const gameCells = document.querySelectorAll('.child-cells');
-
-    const handleClick = function(event){
-      let arrayIndex = event.target.id;  
-      console.log(arrayIndex);
-    }
 
     // Function determines which player is currently active and switched the move symbol and the 
     // player.
@@ -62,12 +57,9 @@ const gameBoard = (function(){
         }
     };
 
-    gameCells.forEach((cell) => {
-        cell.addEventListener('click', handleClick)
-    });
-
     return{
-    render
+    render,
+    gameCells
     }
 })();
 
@@ -82,7 +74,16 @@ const GameController = (function(){
         createPlayer(document.querySelector("#player-two-input").value, 'O')]
         currentPlayerIndex = 0;
         gameOver = false;
-        gameBoard.render();
+        GameBoard.render();
+        
+        GameBoard.gameCells.forEach((cell) => {
+            cell.addEventListener('click', handleClick)
+        });
+    }
+
+    const handleClick = function(event){
+        let arrayIndex = event.target.id;  
+        console.log(arrayIndex);
     }
 
     return{start, players: players}
