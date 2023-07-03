@@ -12,6 +12,8 @@ const gameBoard = (function(){
     let currentPlayer;
     let currentMove ;
 
+    const gameCells = document.querySelectorAll('.child-cells');
+
     
 
     // Function determines which player is currently active and switched the move symbol and the 
@@ -52,8 +54,8 @@ const gameBoard = (function(){
     // Render function renders the items in our movesArray inside our Tic Tac Toe grid.
     const render = function(){
         for(let i = 0; i < movesArray.length; i++){
-            let currentCell = document.getElementById(`${i}`)
-            currentCell.innerHTML = `${movesArray[i]}`;
+            let currentCell = gameCells[i];
+            currentCell.innerHTML = movesArray[i];
         }
     }
 
@@ -92,7 +94,6 @@ const GameController = (function(){
         currentPlayerIndex = 0;
         gameOver = false;
         gameBoard.render();
-        console.log(players)
     }
 
     return{start, players: players}
