@@ -1,3 +1,10 @@
+// This factory function creates our players for the game.
+let createPlayer = (playerName, playerNumber, assignedMove) => {
+    return{playerName, playerNumber, assignedMove};
+}
+
+
+
 const gameBoard = (function(){
     // The array is used to store the game moves for our render function to use.
     let movesArray = ['', '', '', '', '', '', '', '', '']
@@ -27,6 +34,14 @@ const gameBoard = (function(){
         return currentArrayPos;
     }
 
+    const checkArrayPos = function(currentArrayPos){
+        if (movesArray[currentArrayPos] !== ''){
+            return false;
+        } else{
+            return true
+        }
+    }
+
     // Function uses our array position from the previous function along with current move to add 
     // the current move to our movesArray at the correct index.
     const addMove = function(currentArrayPos, currentMove){
@@ -42,12 +57,18 @@ const gameBoard = (function(){
         }
     }
 
+
+
     // Our event listener for our grid.
     document.querySelector('.game-board').addEventListener('click', function(e){
         // Find the ID of the individual cell we clicked inside of the grid (0-8).
         let currentCellID = e.target.id;
         // Find the correct array position using the previous ID variable.
         let arrayPos = findArrayPos(currentCellID);
+        if (checkArrayPos(arrayPos) === false){
+            alert("You can't use the same cell twice!")
+            return;
+        };
         // Determine correct current move by determining which player is active.
         currentMove = determinePlayer();
         // Add the move to our array at the correct array index.
