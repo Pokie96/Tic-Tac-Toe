@@ -139,9 +139,9 @@ const GameController = (function(){
 
     const displayWinner = function(){
         gameOver = checkForWin(GameBoard.getMovesArray())
-        console.log(gameOver)
         if (gameOver === true){
-            alert(`${players[currentPlayerIndex].playerName === 1 ? players[currentPlayerIndex].playerName : `Player ${currentPlayerIndex + 1}`} is the Winner!`)
+            let winner = players[currentPlayerIndex].playerName === 1 ? players[currentPlayerIndex].playerName : `Player ${currentPlayerIndex + 1}`;
+            alert(`${winner} is the Winner!`)
         }
     }
 
