@@ -54,6 +54,7 @@ const GameController = (function(){
     let players = [];
     let currentPlayerIndex;
     let gameOver;
+    let emptySpaces = 9;
 
     // Event listener for initial start button to allow us to play
     // the game
@@ -79,6 +80,7 @@ const GameController = (function(){
         // false
         currentPlayerIndex = 0;
         gameOver = false;
+        emptySpaces = 9;
 
         // Adds click event listener to each of the cells of the 
         // gameboard.
@@ -90,7 +92,7 @@ const GameController = (function(){
     // Function finds the ID of the cell, finds the correct move 
     // marker, renders the marker into the cell and switches player.
     const handleClick = function(event){
-        let arrayIndex = event.target.id;  
+        let arrayIndex = event.target.id; 
         GameBoard.addMove(arrayIndex, players[currentPlayerIndex].assignedMove)
         GameBoard.render()
         displayWinner();
@@ -140,9 +142,27 @@ const GameController = (function(){
     const displayWinner = function(){
         gameOver = checkForWin(GameBoard.getMovesArray())
         if (gameOver === true){
-            console.log(players[currentPlayerIndex].playerName == true);
             let winner = players[currentPlayerIndex].playerName !== '' ? players[currentPlayerIndex].playerName : `Player ${currentPlayerIndex + 1}`;
             alert(`${winner} is the Winner!`)
+        } else if(checkBoardFull() === true){
+            alert("It is a draw!");
+        }; 
+    }
+
+    const checkBoardFull = function(){
+        let movesArray = GameBoard.getMovesArray()
+        console.log(movesArray);
+        for(let i = 0; i < movesArray.length; i++){
+            if(movesArray[i] !== ''){
+                emptySpaces -= 1;
+            };
+            console.log(emptySpaces);
+
+            if(emptySpaces === 0){
+                return true;
+            } else{
+                return false;
+            }
         }
     }
 
