@@ -8,9 +8,6 @@ const createPlayer = (playerName, assignedMove) => {
 const GameBoard = (function(){
     // The array is used to store the game moves for our render function to use.
     let movesArray = ['', '', '', '', '', '', '', '', ''];
-    // Initialise two variables to be used in a function to determine the current move.
-    let currentPlayer;
-    let currentMove ;
 
     const gameCells = document.querySelectorAll('.child-cells');
 
@@ -87,6 +84,14 @@ const GameController = (function(){
         GameBoard.gameCells.forEach((cell) => {
             cell.addEventListener('click', handleClick, {once: true})
         });
+
+        // Switch the grid colour to black when the start button 
+        // is clicked.
+        switchColour('black');
+
+        const playerNameDisplay = document.querySelectorAll(".player-display")
+        playerNameDisplay[0].textContent = document.querySelector("#player-one-input").value;
+        playerNameDisplay[1].textContent = document.querySelector("#player-two-input").value;
     };
 
     // Function finds the ID of the cell, finds the correct move 
@@ -117,6 +122,7 @@ const GameController = (function(){
         GameBoard.gameCells.forEach((cell) => {
             cell.removeEventListener('click', handleClick);
         });
+        switchColour('rgb(173, 173, 173)')
     }
 
     const checkForWin = function(board){
@@ -166,5 +172,15 @@ const GameController = (function(){
         }
     }
 
-    return{}
+    const switchColour = function(color){
+        const gridCells = document.querySelectorAll(".child-cells");
+        const gridContainer = document.querySelector(".game-board");
+        for(let i = 0; i < gridCells.length; i++){
+            gridCells[i].style.borderColor = color;
+        };
+        gridContainer.style.borderColor = color;
+            
+    }
+
+    return{switchColour}
 })();
