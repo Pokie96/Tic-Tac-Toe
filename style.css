@@ -54,7 +54,7 @@ body{
     width: 30px;
 }
 
-.on-screen-text{
+.player-display{
     width: 130px;
     text-align: center;
 }
@@ -62,7 +62,8 @@ body{
 .game-board{
     grid-column: 2/3;
     grid-row: 4/5;
-    border: solid rgb(173, 173, 173);
+    border: solid;
+    border-color: rgb(173, 173, 173);
     height: 400px;
     width: 450px;
     align-self: center;
