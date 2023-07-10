@@ -9,13 +9,25 @@
 <body>
     <h1 class="title">Tic Tac Toe</h1>
 
-    <div class="player-inputs">
+    <form action="index.html" method="get" class="player-inputs">
         <input type="text" placeholder="Player One Name (X)" id="player-one-input">
         <input type="text" placeholder="Player Two Name (O)" id="player-two-input">
-    </div>
+        <label>
+            Versus Player
+            <input type="radio" name="player-choices" id="player-choice">
+        </label>
+        <label>
+            Versus Computer (Easy)
+            <input type="radio" name="player-choices" id="easy-ai-choice">
+        </label>
+        <label>
+            Versus Computer (Hard)
+            <input type="radio" name="player-choices" id="hard-ai-choice">
+        </label>
+        <button id="player-input-start">Start Game</button>
+    </form>
 
     <ul class="game-options">
-        <button id="player-input-start">Start Game</button>
         <button class="on-screen-text" id= "reset-btn">Reset Game</button>
     </ul>
 
