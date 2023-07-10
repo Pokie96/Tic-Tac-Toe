@@ -150,6 +150,9 @@ const GameController = (function(){
         if (gameOver === true){
             let winner = players[currentPlayerIndex].playerName !== '' ? players[currentPlayerIndex].playerName : `Player ${currentPlayerIndex + 1}`;
             alert(`${winner} is the Winner!`)
+            GameBoard.gameCells.forEach((cell) => {
+                cell.removeEventListener('click', handleClick);
+            });
         } else if(checkBoardFull() === true){
             alert("It is a draw!");
         }; 
