@@ -185,5 +185,14 @@ const GameController = (function(){
             
     }
 
-    return{switchColour}
+    const toggleForm = function(){
+        let form = document.querySelector(".player-inputs")
+        if(form.style.visibility === 'visible' || form.style.visibility === ''){
+            form.style.visibility = 'hidden';
+        }else if (form.style.visibility === 'hidden'){
+            form.style.visibility = 'visible';
+        }
+    };
+
+    return{toggleForm}
 })();
