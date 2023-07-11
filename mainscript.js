@@ -86,6 +86,9 @@ const GameController = (function(){
         // default.
         displayPlayerNames();
 
+        // Checks the selected game mode.
+        checkGameMode();
+
         // Switch the grid colour to black when the start button 
         // is clicked.
         switchColour('black');
@@ -228,6 +231,25 @@ const GameController = (function(){
             form.style.visibility = 'visible';
         }
     };
+
+    // This function will check what game mode has been selected by 
+    // the user depending on which radio button has been selected. It
+    // returns a string corresponding to the game mode chosen.
+    const checkGameMode = function(){
+        let gameChoice;
+        let playerRadio = document.querySelector("#player-choice");
+        let easyaiRadio = document.querySelector("#easy-ai-choice");
+        let hardaiRadio = document.querySelector("#hard-ai-choice");
+
+        if(playerRadio.checked){
+            gameChoice = "player"
+        } else if(easyaiRadio.checked){
+            gameChoice = "easyai"
+        } else if(hardaiRadio.checked){
+            gameChoice = "hardai"
+        };
+        return(gameChoice);
+    }
 
     return{toggleForm}
 })();
