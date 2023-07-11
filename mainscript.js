@@ -85,15 +85,16 @@ const GameController = (function(){
             cell.addEventListener('click', handleClick, {once: true})
         });
 
+        // Displays the players name's on the page or Player One/Two by
+        // default.
+        displayPlayerNames();
+
         // Switch the grid colour to black when the start button 
         // is clicked.
         switchColour('black');
 
+        // Hides the form.
         toggleForm();
-
-        const playerNameDisplay = document.querySelectorAll(".player-display")
-        playerNameDisplay[0].textContent = document.querySelector("#player-one-input").value;
-        playerNameDisplay[1].textContent = document.querySelector("#player-two-input").value;
     };
 
     // Function finds the ID of the cell, finds the correct move 
@@ -106,9 +107,24 @@ const GameController = (function(){
         switchPlayer();
     };
 
+    // Function to display the player's name on the page. If no name 
+    // has been given it will display the default Player One or Player
+    // Two.
+    const displayPlayerNames = function(){
+
+        const playerNameDisplay = document.querySelectorAll(".player-display")
+        playerNameDisplay[0].textContent = document.querySelector("#player-one-input").value;
+        playerNameDisplay[1].textContent = document.querySelector("#player-two-input").value;
+        if (document.querySelector("#player-one-input").value === ""){
+            playerNameDisplay[0].textContent = "Player One";
+        };
+        if (document.querySelector("#player-two-input").value === ""){
+            playerNameDisplay[1].textContent = "Player Two";
+        };
+    }
+
     // Function switches player using the currentPlayerIndex's 
     // value.
-
     const switchPlayer = function(){
         if (currentPlayerIndex === 0){
             currentPlayerIndex = 1;
