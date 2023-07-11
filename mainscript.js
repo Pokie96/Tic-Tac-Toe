@@ -89,6 +89,8 @@ const GameController = (function(){
         // is clicked.
         switchColour('black');
 
+        toggleForm();
+
         const playerNameDisplay = document.querySelectorAll(".player-display")
         playerNameDisplay[0].textContent = document.querySelector("#player-one-input").value;
         playerNameDisplay[1].textContent = document.querySelector("#player-two-input").value;
@@ -115,6 +117,8 @@ const GameController = (function(){
         }
     };
 
+    // Function restarts our game and allows the user to input any new
+    // information to the game.
     const restart = function(){
         players = [];
         GameBoard.resetArray();
@@ -123,8 +127,11 @@ const GameController = (function(){
             cell.removeEventListener('click', handleClick);
         });
         switchColour('rgb(173, 173, 173)')
+        toggleForm();
     }
 
+    // Function checks for winning combinations and is called every time
+    // a move is made in the game.
     const checkForWin = function(board){
         const winningCombinations = [
             [0, 1, 2],
@@ -145,6 +152,9 @@ const GameController = (function(){
         return false;
     };
 
+    // Function alerts who the winner is if the checkForWin() function 
+    // returns true otherwise it checks if the board is full and returns
+    // a draw instead. If neither parameters are met, the game continues.
     const displayWinner = function(){
         gameOver = checkForWin(GameBoard.getMovesArray())
         if (gameOver === true){
@@ -158,6 +168,8 @@ const GameController = (function(){
         }; 
     }
 
+    // This function checks if there any empty spaces left in the grid
+    // and if there isn't any then it will return as true.
     const checkBoardFull = function(){
         let movesArray = GameBoard.getMovesArray()
         console.log(movesArray);
@@ -175,6 +187,8 @@ const GameController = (function(){
         }
     }
 
+    // This function accepts a colour value and applies it to the 
+    // grid elements.
     const switchColour = function(color){
         const gridCells = document.querySelectorAll(".child-cells");
         const gridContainer = document.querySelector(".game-board");
@@ -182,9 +196,10 @@ const GameController = (function(){
             gridCells[i].style.borderColor = color;
         };
         gridContainer.style.borderColor = color;
-            
     }
 
+    // This function toggles the visiblity of the form element from 
+    // visible to hidden or vice-versa.
     const toggleForm = function(){
         let form = document.querySelector(".player-inputs")
         if(form.style.visibility === 'visible' || form.style.visibility === ''){
