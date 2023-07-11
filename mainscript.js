@@ -46,7 +46,7 @@ const GameBoard = (function(){
 })();
 
 const GameController = (function(){
-    const initialStartBtn = document.querySelector("#player-input-start");
+    const startBtn = document.querySelector("#player-input-start");
     const restartBtn = document.querySelector("#reset-btn");
     let players = [];
     let currentPlayerIndex;
@@ -55,13 +55,10 @@ const GameController = (function(){
 
     // Event listener for initial start button to allow us to play
     // the game
-    initialStartBtn.addEventListener('click', () => {
+    startBtn.addEventListener('click', () => {
         start()
-    });
+    }, {once: true});
 
-    restartBtn.addEventListener('click', () => {
-        restart();
-    });
 
     // Start function for our initial start button -
 
@@ -95,6 +92,10 @@ const GameController = (function(){
 
         // Hides the form.
         toggleForm();
+
+        restartBtn.addEventListener('click', () => {
+            restart();
+        }, {once: true});
     };
 
     // Function finds the ID of the cell, finds the correct move 
@@ -144,6 +145,9 @@ const GameController = (function(){
         });
         switchColour('rgb(173, 173, 173)')
         toggleForm();
+        startBtn.addEventListener('click', () => {
+            start()
+        }, {once: true});
     }
 
     // Function checks for winning combinations and is called every time
