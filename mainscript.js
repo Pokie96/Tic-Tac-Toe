@@ -121,26 +121,30 @@ const GameController = (function(){
         GameBoard.render()
         displayWinner();
         switchPlayer();
-        let randomIndex = function(){
-            let randomIndex = Math.floor(Math.random()*9);
-            for (let i = 0; i < usedNumbers.length; i++){
-                while (randomIndex === arrayIndex || randomIndex === usedNumbers[i]){
-                    randomIndex = Math.floor(Math.random()*9);
-                }
+        easyaiMove(arrayIndex);
+        switchPlayer();
+    }
+
+    const easyaiMove = function(arrayIndex){
+        let randomIndex = Math.floor(Math.random()*9);
+        while (randomIndex === arrayIndex || usedNumbers.includes(randomIndex)){
+            randomIndex = Math.floor(Math.random()*9);
+            if (usedNumbers.length === 9){
+                break;
             }
-            usedNumbers.push(randomIndex);
-            console.log(usedNumbers);
-            GameBoard.gameCells[randomIndex].removeEventListener('click', handleClickEasyAi)
-            return randomIndex;
         }
-        GameBoard.addMove(randomIndex(), players[currentPlayerIndex].assignedMove)
+        if(usedNumbers.length < 9){
+            usedNumbers.push(randomIndex);
+        }
+        console.log(usedNumbers);
+        GameBoard.gameCells[randomIndex].removeEventListener('click', handleClickEasyAi)
+        
+        GameBoard.addMove(randomIndex, players[currentPlayerIndex].assignedMove)
         GameBoard.render()
         if (!alreadyWon){
             displayWinner()
         }
-        switchPlayer();
-    }
-
+    };
     // Function to display the player's name on the page. If no name 
     // has been given it will display the default Player One or Player
     // Two.
@@ -221,6 +225,7 @@ const GameController = (function(){
             alreadyWon = true;
         } else if(checkBoardFull() === true){
             alert("It is a draw!");
+            alreadyWon = true;
         }; 
     }
 
