@@ -66,15 +66,16 @@ const GameController = (function(){
     // Start function for our initial start button -
 
     const start = ()=> {
+
+        // Checks the selected game mode.
+        checkGameMode();
+
         // Creates our player objects dependent on 
         // what the user entered into the player inputs and assigns 
         // each of them a move marker (X or O). 
         players = [
         createPlayer(document.querySelector("#player-one-input").value, 'X'),
         createPlayer(document.querySelector("#player-two-input").value, 'O')]
-        
-        // Checks the selected game mode.
-        checkGameMode();
 
         // Sets current player to first player and game over to 
         // false
@@ -82,18 +83,22 @@ const GameController = (function(){
         gameOver = false;
         emptySpaces = 9;
 
-        // Adds click event listener to each of the cells of the 
-        // gameboard.
+        // Adds the player vs player click event listener to each 
+        // of the cells of the gameboard if user has chosen two player
+        // game mode.
         if(gameChoice === 'player'){
             GameBoard.gameCells.forEach((cell) => {
                 cell.addEventListener('click', handleClick, {once: true})
             });
         }
 
+        // Adds the player vs easyai click event listener to each of 
+        // the cells if the user has chosen the easy ai game mode.
         if(gameChoice ==='easyai'){
             GameBoard.gameCells.forEach((cell) => {
                 cell.addEventListener('click', handleClickEasyAi, {once: true})
             });
+            players[1] = createPlayer("Computer", "O");
         }
 
         // Displays the players name's on the page or Player One/Two by
@@ -112,6 +117,7 @@ const GameController = (function(){
         }, {once: true});
     };
 
+
     // Function finds the ID of the cell, finds the correct move 
     // marker, renders the marker into the cell and switches player.
     const handleClick = function(event){
@@ -122,6 +128,10 @@ const GameController = (function(){
         switchPlayer();
     };
 
+
+    // The function used on each user click, during the easy ai mode,
+    // to handle both the users move as well as triggering the computer's
+    // move.
     const handleClickEasyAi = function(event){
         let arrayIndex = event.target.id; 
         usedNumbers.push(parseInt(arrayIndex));
@@ -131,8 +141,11 @@ const GameController = (function(){
         switchPlayer();
         easyaiMove(arrayIndex);
         switchPlayer();
-    }
+    };
 
+
+    // Function for the easy ai to generate a non repeating random
+    // move, add it to the moves array and re-render the grid.
     const easyaiMove = function(arrayIndex){
         let randomIndex = Math.floor(Math.random()*9);
         while (randomIndex === arrayIndex || usedNumbers.includes(randomIndex)){
@@ -153,24 +166,24 @@ const GameController = (function(){
             displayWinner()
         }
     };
+
+
     // Function to display the player's name on the page. If no name 
     // has been given it will display the default Player One or Player
     // Two.
     const displayPlayerNames = function(){
 
         const playerNameDisplay = document.querySelectorAll(".player-display")
-        playerNameDisplay[0].textContent = document.querySelector("#player-one-input").value;
-        playerNameDisplay[1].textContent = document.querySelector("#player-two-input").value;
-        if (document.querySelector("#player-one-input").value === ""){
+        playerNameDisplay[0].textContent = players[0].playerName;
+        playerNameDisplay[1].textContent = players[1].playerName;
+        if (players[0].playerName === ""){
             playerNameDisplay[0].textContent = "Player One";
         };
-        if (document.querySelector("#player-two-input").value === ""){
+        if (players[1].playerName === ""){
             playerNameDisplay[1].textContent = "Player Two";
         };
-        if (gameChoice === "easyai" || gameChoice === "hardai"){
-            playerNameDisplay[1].textContent = "Computer";
-        };
-    }
+    };
+
 
     // Function switches player using the currentPlayerIndex's 
     // value.
@@ -181,6 +194,7 @@ const GameController = (function(){
             currentPlayerIndex = 0;
         }
     };
+
 
     // Function restarts our game and allows the user to input any new
     // information to the game.
@@ -205,7 +219,8 @@ const GameController = (function(){
         startBtn.addEventListener('click', () => {
             start()
         }, {once: true});
-    }
+    };
+
 
     // Function checks for winning combinations and is called every time
     // a move is made in the game.
@@ -229,6 +244,7 @@ const GameController = (function(){
         return false;
     };
 
+
     // Function alerts who the winner is if the checkForWin() function 
     // returns true otherwise it checks if the board is full and returns
     // a draw instead. If neither parameters are met, the game continues.
@@ -245,7 +261,8 @@ const GameController = (function(){
             alert("It is a draw!");
             alreadyWon = true;
         }; 
-    }
+    };
+
 
     // This function checks if there any empty spaces left in the grid
     // and if there isn't any then it will return as true.
@@ -262,7 +279,8 @@ const GameController = (function(){
                 return false;
             }
         }
-    }
+    };
+
 
     // This function accepts a colour value and applies it to the 
     // grid elements.
@@ -275,6 +293,7 @@ const GameController = (function(){
         gridContainer.style.borderColor = color;
     }
 
+
     // This function toggles the visiblity of the form element from 
     // visible to hidden or vice-versa.
     const toggleForm = function(){
@@ -285,6 +304,7 @@ const GameController = (function(){
             form.style.visibility = 'visible';
         }
     };
+
 
     // This function will check what game mode has been selected by 
     // the user depending on which radio button has been selected. It
