@@ -73,6 +73,9 @@ const GameController = (function(){
         createPlayer(document.querySelector("#player-one-input").value, 'X'),
         createPlayer(document.querySelector("#player-two-input").value, 'O')]
         
+        // Checks the selected game mode.
+        checkGameMode();
+
         // Sets current player to first player and game over to 
         // false
         currentPlayerIndex = 0;
@@ -81,16 +84,21 @@ const GameController = (function(){
 
         // Adds click event listener to each of the cells of the 
         // gameboard.
-        GameBoard.gameCells.forEach((cell) => {
-            cell.addEventListener('click', handleClickEasyAi, {once: true})
-        });
+        if(gameChoice === 'player'){
+            GameBoard.gameCells.forEach((cell) => {
+                cell.addEventListener('click', handleClick, {once: true})
+            });
+        }
+
+        if(gameChoice ==='easyai'){
+            GameBoard.gameCells.forEach((cell) => {
+                cell.addEventListener('click', handleClickEasyAi, {once: true})
+            });
+        }
 
         // Displays the players name's on the page or Player One/Two by
         // default.
         displayPlayerNames();
-
-        // Checks the selected game mode.
-        checkGameMode();
 
         // Switch the grid colour to black when the start button 
         // is clicked.
@@ -179,9 +187,16 @@ const GameController = (function(){
         alreadyWon = false;
         GameBoard.resetArray();
         GameBoard.render();
-        GameBoard.gameCells.forEach((cell) => {
-            cell.removeEventListener('click', handleClick);
-        });
+        if(gameChoice === 'player'){
+            GameBoard.gameCells.forEach((cell) => {
+                cell.removeEventListener('click', handleClick);
+            });
+        };
+        if(gameChoice === 'easyai'){
+            GameBoard.gameCells.forEach((cell) => {
+                cell.removeEventListener('click', handleClickEasyAi);
+            });
+        };
         switchColour('rgb(173, 173, 173)')
         toggleForm();
         startBtn.addEventListener('click', () => {
