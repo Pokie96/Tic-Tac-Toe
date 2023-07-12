@@ -52,6 +52,9 @@ const GameController = (function(){
     let currentPlayerIndex;
     let gameOver;
     let emptySpaces = 9;
+    let gameChoice;
+    let usedNumbers = [];
+    let alreadyWon;
 
     // Event listener for initial start button to allow us to play
     // the game
@@ -79,7 +82,7 @@ const GameController = (function(){
         // Adds click event listener to each of the cells of the 
         // gameboard.
         GameBoard.gameCells.forEach((cell) => {
-            cell.addEventListener('click', handleClick, {once: true})
+            cell.addEventListener('click', handleClickEasyAi, {once: true})
         });
 
         // Displays the players name's on the page or Player One/Two by
@@ -111,6 +114,33 @@ const GameController = (function(){
         switchPlayer();
     };
 
+    const handleClickEasyAi = function(event){
+        let arrayIndex = event.target.id; 
+        usedNumbers.push(parseInt(arrayIndex));
+        GameBoard.addMove(arrayIndex, players[currentPlayerIndex].assignedMove)
+        GameBoard.render()
+        displayWinner();
+        switchPlayer();
+        let randomIndex = function(){
+            let randomIndex = Math.floor(Math.random()*9);
+            for (let i = 0; i < usedNumbers.length; i++){
+                while (randomIndex === arrayIndex || randomIndex === usedNumbers[i]){
+                    randomIndex = Math.floor(Math.random()*9);
+                }
+            }
+            usedNumbers.push(randomIndex);
+            console.log(usedNumbers);
+            GameBoard.gameCells[randomIndex].removeEventListener('click', handleClickEasyAi)
+            return randomIndex;
+        }
+        GameBoard.addMove(randomIndex(), players[currentPlayerIndex].assignedMove)
+        GameBoard.render()
+        if (!alreadyWon){
+            displayWinner()
+        }
+        switchPlayer();
+    }
+
     // Function to display the player's name on the page. If no name 
     // has been given it will display the default Player One or Player
     // Two.
@@ -141,6 +171,8 @@ const GameController = (function(){
     // information to the game.
     const restart = function(){
         players = [];
+        usedNumbers = [];
+        alreadyWon = false;
         GameBoard.resetArray();
         GameBoard.render();
         GameBoard.gameCells.forEach((cell) => {
@@ -186,6 +218,7 @@ const GameController = (function(){
             GameBoard.gameCells.forEach((cell) => {
                 cell.removeEventListener('click', handleClick);
             });
+            alreadyWon = true;
         } else if(checkBoardFull() === true){
             alert("It is a draw!");
         }; 
@@ -195,12 +228,10 @@ const GameController = (function(){
     // and if there isn't any then it will return as true.
     const checkBoardFull = function(){
         let movesArray = GameBoard.getMovesArray()
-        console.log(movesArray);
         for(let i = 0; i < movesArray.length; i++){
             if(movesArray[i] !== ''){
                 emptySpaces -= 1;
             };
-            console.log(emptySpaces);
 
             if(emptySpaces === 0){
                 return true;
@@ -236,7 +267,6 @@ const GameController = (function(){
     // the user depending on which radio button has been selected. It
     // returns a string corresponding to the game mode chosen.
     const checkGameMode = function(){
-        let gameChoice;
         let playerRadio = document.querySelector("#player-choice");
         let easyaiRadio = document.querySelector("#easy-ai-choice");
         let hardaiRadio = document.querySelector("#hard-ai-choice");
@@ -248,7 +278,6 @@ const GameController = (function(){
         } else if(hardaiRadio.checked){
             gameChoice = "hardai"
         };
-        return(gameChoice);
     }
 
     return{toggleForm}
