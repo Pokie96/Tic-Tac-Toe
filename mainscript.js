@@ -167,6 +167,9 @@ const GameController = (function(){
         if (document.querySelector("#player-two-input").value === ""){
             playerNameDisplay[1].textContent = "Player Two";
         };
+        if (gameChoice === "easyai" || gameChoice === "hardai"){
+            playerNameDisplay[1].textContent = "Computer";
+        };
     }
 
     // Function switches player using the currentPlayerIndex's 
