@@ -96,4 +96,6 @@ body{
     justify-content: space-evenly;
     background-color: darkgrey;
     min-width: 200px;
+    box-shadow: 3px 3px 3px black;
+    border: solid black 1px;
 }
