@@ -49,6 +49,7 @@ const GameController = (function(){
     const startBtn = document.querySelector("#player-input-start");
     const restartBtn = document.querySelector("#reset-btn");
     const winnMsg = document.querySelector("#winning-message");
+    const winnMsgCont = document.querySelector(".win-msg-container");
     let players = [];
     let currentPlayerIndex;
     let gameOver;
@@ -221,6 +222,7 @@ const GameController = (function(){
         startBtn.addEventListener('click', () => {
             start()
         }, {once: true});
+        winnMsgCont.style.visibility = "hidden";
     };
 
 
@@ -255,12 +257,14 @@ const GameController = (function(){
         if (gameOver === true){
             let winner = players[currentPlayerIndex].playerName !== '' ? players[currentPlayerIndex].playerName : `Player ${currentPlayerIndex + 1}`;
             winnMsg.textContent = `${winner} is the Winner!`;
+            winnMsgCont.style.visibility = "visible";
             GameBoard.gameCells.forEach((cell) => {
                 cell.removeEventListener('click', handleClick);
             });
             alreadyWon = true;
         } else if(checkBoardFull() === true){
             winnMsg.textContent = "It is a draw!";
+            winnMsgCont.style.visibility = "visible";
             alreadyWon = true;
         }; 
     };
