@@ -99,3 +99,21 @@ body{
     box-shadow: 3px 3px 3px black;
     border: solid black 1px;
 }
+
+.win-msg-container{
+    position: fixed;
+    min-width: 690px;
+    width: 100vw;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    top: 40%;
+    background-color: darkgray;
+    visibility: hidden;
+}
+
+#winning-message{
+    font-size: 40px;
+}
