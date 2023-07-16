@@ -48,12 +48,6 @@ body{
     align-items: center;
 }
 
-.playerscore .score{
-    border: solid black;
-    height: 30px;
-    width: 30px;
-}
-
 .player-display{
     width: 130px;
     text-align: center;
