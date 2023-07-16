@@ -154,13 +154,13 @@ const GameController = (function(){
                 break;
             }
         }
-        if(usedNumbers.length < 9){
+        if(gameOver !== true && usedNumbers.length < 9){
             usedNumbers.push(randomIndex);
+            GameBoard.addMove(randomIndex, players[currentPlayerIndex].assignedMove)
         }
         console.log(usedNumbers);
         GameBoard.gameCells[randomIndex].removeEventListener('click', handleClickEasyAi)
         
-        GameBoard.addMove(randomIndex, players[currentPlayerIndex].assignedMove)
         GameBoard.render()
         if (!alreadyWon){
             displayWinner()
