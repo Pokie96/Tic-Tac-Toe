@@ -48,6 +48,7 @@ const GameBoard = (function(){
 const GameController = (function(){
     const startBtn = document.querySelector("#player-input-start");
     const restartBtn = document.querySelector("#reset-btn");
+    const winnMsg = document.querySelector("#winning-message");
     let players = [];
     let currentPlayerIndex;
     let gameOver;
@@ -202,6 +203,7 @@ const GameController = (function(){
         players = [];
         usedNumbers = [];
         alreadyWon = false;
+        winnMsg.textContent = "";
         GameBoard.resetArray();
         GameBoard.render();
         if(gameChoice === 'player'){
@@ -252,13 +254,13 @@ const GameController = (function(){
         gameOver = checkForWin(GameBoard.getMovesArray())
         if (gameOver === true){
             let winner = players[currentPlayerIndex].playerName !== '' ? players[currentPlayerIndex].playerName : `Player ${currentPlayerIndex + 1}`;
-            alert(`${winner} is the Winner!`)
+            winnMsg.textContent = `${winner} is the Winner!`;
             GameBoard.gameCells.forEach((cell) => {
                 cell.removeEventListener('click', handleClick);
             });
             alreadyWon = true;
         } else if(checkBoardFull() === true){
-            alert("It is a draw!");
+            winnMsg.textContent = "It is a draw!";
             alreadyWon = true;
         }; 
     };
@@ -312,14 +314,11 @@ const GameController = (function(){
     const checkGameMode = function(){
         let playerRadio = document.querySelector("#player-choice");
         let easyaiRadio = document.querySelector("#easy-ai-choice");
-        let hardaiRadio = document.querySelector("#hard-ai-choice");
 
         if(playerRadio.checked){
             gameChoice = "player"
         } else if(easyaiRadio.checked){
             gameChoice = "easyai"
-        } else if(hardaiRadio.checked){
-            gameChoice = "hardai"
         };
     }
 
