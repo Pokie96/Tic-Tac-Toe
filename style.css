@@ -83,6 +83,8 @@ body{
     font-size: 100px;
     font-family:Arial, Helvetica, sans-serif;
     text-align: center;
+    color: #c06c84;
+    text-shadow: 2px 2px 1px#6c5b7c;
 }
 
 .player-inputs{
