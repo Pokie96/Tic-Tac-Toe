@@ -109,7 +109,7 @@ const GameController = (function(){
 
         // Switch the grid colour to black when the start button 
         // is clicked.
-        switchColour('black');
+        switchColour('#f67280');
 
         // Hides the form.
         toggleForm();
@@ -217,7 +217,7 @@ const GameController = (function(){
                 cell.removeEventListener('click', handleClickEasyAi);
             });
         };
-        switchColour('rgb(173, 173, 173)')
+        switchColour('#c06c84')
         toggleForm();
         startBtn.addEventListener('click', () => {
             start()
