@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 body{
@@ -10,6 +11,7 @@ body{
     grid-template-rows: repeat(3, 50px) 10fr 1fr;
     min-width: 680px;
     height: 100vh;
+    background-color: #f8b595;
 }
 
 .title{
@@ -17,6 +19,10 @@ body{
     grid-row: 1/2;
     align-self: center;
     justify-self: center;
+    color: #6c5b7c;
+    font-weight: bolder;
+    font-size: 40px;
+    text-shadow:2px 2px 1px  #f67280;
 }
 
 .game-options{
@@ -51,13 +57,16 @@ body{
 .player-display{
     width: 130px;
     text-align: center;
+    color: #6c5b7c;
+    font-weight: bolder;
+    text-shadow:2px 2px 1px  #f67280;
 }
 
 .game-board{
     grid-column: 2/3;
     grid-row: 4/5;
     border: solid;
-    border-color: rgb(173, 173, 173);
+    border-color: #c06c84;
     height: 400px;
     width: 450px;
     align-self: center;
@@ -70,7 +79,7 @@ body{
 .game-board div{
     height: 100%;
     width: 100%;
-    border: solid rgb(173, 173, 173);
+    border: solid #c06c84;
     font-size: 100px;
     font-family:Arial, Helvetica, sans-serif;
     text-align: center;
@@ -88,10 +97,12 @@ body{
     right: 35%;
     align-items: center;
     justify-content: space-evenly;
-    background-color: darkgrey;
+    background-color: #6c5b7c;
     min-width: 200px;
     box-shadow: 3px 3px 3px black;
     border: solid black 1px;
+    color: #f8b595;
+    font-weight: bolder;
 }
 
 .win-msg-container{
@@ -110,4 +121,37 @@ body{
 
 #winning-message{
     font-size: 40px;
+}
+
+#reset-btn{
+    padding: 8px 20px;
+    color: #6c5b7c;
+    background-color: #f67280;
+    font-weight: bolder;
+    font-size: 16px;
+    text-shadow: 1px 1px black;
+}
+
+#player-input-start{
+    padding: 8px 20px;
+    color: #6c5b7c;
+    background-color: #f67280;
+    font-weight: bolder;
+    font-size: 16px;
+    text-shadow: 1px 1px black;
+}
+
+input[type = 'text']{
+    background-color: #f67280;
+    height: 30px;
+    color: #6c5b7c;
+    font-weight: bolder;
+    font-size: 16px;
+    text-shadow: 1px 1px black;
+}
+
+label{
+    color: #f67280;
+    font-weight: bolder;
+    text-shadow: 1px 1px black;
 }
